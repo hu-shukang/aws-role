@@ -8,7 +8,12 @@
     "build": "tsc",
     "watch": "tsc -w",
     "test": "jest",
+    "cdk:all": "cdk deploy --all",
+    "cdk:codepipeline-access-role": "cdk deploy CodePipelineAccessRoleStack",
     "cdk:lambda-access-role": "cdk deploy LambdaAccessRoleStack",
+    "cdk:ecs-service-role": "cdk deploy ECSServiceRoleStack",
+    "cdk:ecs-task-role": "cdk deploy ECSTaskRoleStack",
+    "cdk:ecs-execution-task-role": "cdk deploy ECSExecutionTaskRole",
     "lint": "eslint --fix --ext \".ts\" \"**/*.ts\""
   },
   "devDependencies": {
