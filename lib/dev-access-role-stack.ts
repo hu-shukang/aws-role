@@ -7,8 +7,8 @@ export class DevAccessRoleStack extends cdk.Stack {
     super(scope, id, props);
     const account = props?.env?.account as string;
 
-    const devAccessPolicy = new iam.Policy(this, 'DevAccessPolicy', {
-      policyName: 'DevAccessPolicy',
+    const devAccessPolicy = new iam.ManagedPolicy(this, 'DevAccessPolicy', {
+      managedPolicyName: 'DevAccessPolicy',
       statements: [
         new iam.PolicyStatement({
           notActions: ['iam:*', 'organizations:*', 'ec2:*Vpc*', 'ec2:*SecurityGroup*', 's3:*'],
@@ -41,7 +41,7 @@ export class DevAccessRoleStack extends cdk.Stack {
         }),
         new iam.PolicyStatement({
           actions: [
-            'organizations:DescribeOriganization',
+            'organizations:DescribeOrganization',
             'ec2:Describe*',
             's3:Get*',
             's3:PutObject',
@@ -104,7 +104,6 @@ export class DevAccessRoleStack extends cdk.Stack {
     devAccessRole.addManagedPolicy(iam.ManagedPolicy.fromAwsManagedPolicyName('AWSSupportAccess'));
 
     devAccessRole.addManagedPolicy(iam.ManagedPolicy.fromAwsManagedPolicyName('IAMReadOnlyAccess'));
-
-    devAccessPolicy.attachToRole(devAccessRole);
+    devAccessRole.addManagedPolicy(devAccessPolicy);
   }
 }

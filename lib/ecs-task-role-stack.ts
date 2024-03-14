@@ -368,7 +368,6 @@ export class ECSTaskRoleStack extends cdk.Stack {
         new iam.ServicePrincipal('apigateway.amazonaws.com'),
       ),
     });
-
     ecsTaskPolicy.attachToRole(ecsTaskRole);
   }
 }

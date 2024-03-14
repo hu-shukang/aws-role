@@ -7,6 +7,7 @@ export class ECSExecutionTaskRole extends cdk.Stack {
     super(scope, id, props);
 
     const ecsExecutionTaskRole = new iam.Role(this, 'ECSExecutionTaskRole', {
+      roleName: 'ECSExecutionTaskRole',
       assumedBy: new iam.ServicePrincipal('ecs-tasks.amazonaws.com'),
     });
 

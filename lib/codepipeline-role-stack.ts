@@ -8,8 +8,8 @@ export class CodePipelineRoleStack extends cdk.Stack {
     const account = props?.env?.account as string;
     const region = props?.env?.region as string;
 
-    const codePipelinePolicy = new iam.Policy(this, 'CodePipelinePolicy', {
-      policyName: 'CodePipelinePolicy',
+    const codePipelinePolicy = new iam.ManagedPolicy(this, 'CodePipelinePolicy', {
+      managedPolicyName: 'CodePipelinePolicy',
       statements: [
         new iam.PolicyStatement({
           actions: [
@@ -162,8 +162,8 @@ export class CodePipelineRoleStack extends cdk.Stack {
       ],
     });
 
-    const codePipelinePolicyForCodeArtifact = new iam.Policy(this, 'CodePipelinePolicyForCodeArtifact', {
-      policyName: 'CodePipelinePolicyForCodeArtifact',
+    const codePipelinePolicyForCodeArtifact = new iam.ManagedPolicy(this, 'CodePipelinePolicyForCodeArtifact', {
+      managedPolicyName: 'CodePipelinePolicyForCodeArtifact',
       statements: [
         new iam.PolicyStatement({
           actions: [
@@ -208,8 +208,8 @@ export class CodePipelineRoleStack extends cdk.Stack {
       ],
     });
 
-    const codePipelinePolicyForECS = new iam.Policy(this, 'CodePipelinePolicyForECS', {
-      policyName: 'CodePipelinePolicyForECS',
+    const codePipelinePolicyForECS = new iam.ManagedPolicy(this, 'CodePipelinePolicyForECS', {
+      managedPolicyName: 'CodePipelinePolicyForECS',
       statements: [
         new iam.PolicyStatement({
           actions: [
@@ -387,14 +387,12 @@ export class CodePipelineRoleStack extends cdk.Stack {
     codePipelineRole.addManagedPolicy(iam.ManagedPolicy.fromAwsManagedPolicyName('AmazonAPIGatewayAdministrator'));
     codePipelineRole.addManagedPolicy(iam.ManagedPolicy.fromAwsManagedPolicyName('AWSCodeBuildAdminAccess'));
     codePipelineRole.addManagedPolicy(iam.ManagedPolicy.fromAwsManagedPolicyName('AWSCodeCommitFullAccess'));
-    codePipelineRole.addManagedPolicy(iam.ManagedPolicy.fromAwsManagedPolicyName('AWSCodeDeployFullAccess'));
     codePipelineRole.addManagedPolicy(iam.ManagedPolicy.fromAwsManagedPolicyName('AWSCodePipeline_FullAccess'));
     codePipelineRole.addManagedPolicy(iam.ManagedPolicy.fromAwsManagedPolicyName('AWSLambda_FullAccess'));
     codePipelineRole.addManagedPolicy(iam.ManagedPolicy.fromAwsManagedPolicyName('CloudWatchEventsFullAccess'));
     codePipelineRole.addManagedPolicy(iam.ManagedPolicy.fromAwsManagedPolicyName('CloudWatchFullAccessV2'));
-
-    codePipelinePolicy.attachToRole(codePipelineRole);
-    codePipelinePolicyForCodeArtifact.attachToRole(codePipelineRole);
-    codePipelinePolicyForECS.attachToRole(codePipelineRole);
+    codePipelineRole.addManagedPolicy(codePipelinePolicy);
+    codePipelineRole.addManagedPolicy(codePipelinePolicyForCodeArtifact);
+    codePipelineRole.addManagedPolicy(codePipelinePolicyForECS);
   }
 }

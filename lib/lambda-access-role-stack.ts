@@ -6,8 +6,8 @@ export class LambdaAccessRoleStack extends cdk.Stack {
   constructor(scope: Construct, id: string, props?: cdk.StackProps) {
     super(scope, id, props);
 
-    const lambdaAccessPolicy = new iam.Policy(this, 'LambdaAccessPolicy', {
-      policyName: 'LambdaAccessPolicy',
+    const lambdaAccessPolicy = new iam.ManagedPolicy(this, 'LambdaAccessPolicy', {
+      managedPolicyName: 'LambdaAccessPolicy',
       statements: [
         new iam.PolicyStatement({
           effect: iam.Effect.ALLOW,
@@ -55,6 +55,6 @@ export class LambdaAccessRoleStack extends cdk.Stack {
 
     lambdaAccessRole.addManagedPolicy(iam.ManagedPolicy.fromAwsManagedPolicyName('AWSXrayWriteOnlyAccess'));
 
-    lambdaAccessPolicy.attachToRole(lambdaAccessRole);
+    lambdaAccessRole.addManagedPolicy(lambdaAccessPolicy);
   }
 }
