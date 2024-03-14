@@ -9,6 +9,8 @@ import { DevAccessRoleStack } from '../lib/dev-access-role-stack';
 import { DevUserGroupStack } from '../lib/dev-user-group-stack';
 import { AdminUserGroupStack } from '../lib/admin-user-group-stack';
 import { S3Stack } from '../lib/s3-stack';
+import { RepositoryStack } from '../lib/repository-stack';
+import { VPCStack } from '../lib/vpc-stack';
 
 declare module 'aws-cdk-lib' {
   interface Environment {
@@ -38,4 +40,6 @@ new ECSExecutionTaskRole(app, 'ECSExecutionTaskRole', props);
 new DevAccessRoleStack(app, 'DevAccessRoleStack', props);
 new AdminUserGroupStack(app, 'AdminUserGroupStack', props);
 new DevUserGroupStack(app, 'DevUserGroupStack', props);
+new RepositoryStack(app, `RepositoryStack`, props);
 new S3Stack(app, `S3Stack-${env}`, props);
+new VPCStack(app, `VPCStack-${env}`, props);
