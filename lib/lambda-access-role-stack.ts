@@ -18,6 +18,8 @@ export class LambdaAccessRoleStack extends cdk.Stack {
           effect: iam.Effect.ALLOW,
           actions: ['s3:*'],
           resources: [
+            'arn:aws:s3:::*web*',
+            'arn:aws:s3:::*web*/*',
             'arn:aws:s3:::*work*',
             'arn:aws:s3:::*work*/*',
             'arn:aws:s3:::*log*',
@@ -26,6 +28,8 @@ export class LambdaAccessRoleStack extends cdk.Stack {
             'arn:aws:s3:::*unyo*/*',
             'arn:aws:s3:::*deploy*',
             'arn:aws:s3:::*deploy*/*',
+            'arn:aws:s3:::*contents*',
+            'arn:aws:s3:::*contents*/*',
           ],
         }),
         new iam.PolicyStatement({
