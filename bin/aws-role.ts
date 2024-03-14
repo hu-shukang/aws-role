@@ -11,6 +11,7 @@ import { AdminUserGroupStack } from '../lib/admin-user-group-stack';
 import { S3Stack } from '../lib/s3-stack';
 import { RepositoryStack } from '../lib/repository-stack';
 import { VPCStack } from '../lib/vpc-stack';
+import { EventBridgeForCodePipelineRoleStack } from '../lib/event-bridge-for-code-pipeline-role-stack';
 
 declare module 'aws-cdk-lib' {
   interface Environment {
@@ -32,14 +33,19 @@ const env = app.node.tryGetContext('env') as string;
 const props: cdk.StackProps = {
   env: { account: '471112651100', region: 'ap-northeast-1', appName: 'tanso', env: env },
 };
-
+// role
 new CodePipelineRoleStack(app, 'CodePipelineRoleStack', props);
 new LambdaAccessRoleStack(app, 'LambdaAccessRoleStack', props);
 new ECSTaskRoleStack(app, 'ECSTaskRoleStack', props);
 new ECSExecutionTaskRole(app, 'ECSExecutionTaskRole', props);
 new DevAccessRoleStack(app, 'DevAccessRoleStack', props);
+new EventBridgeForCodePipelineRoleStack(app, 'EventBridgeForCodePipelineRoleStack', props);
+
+// user group
 new AdminUserGroupStack(app, 'AdminUserGroupStack', props);
 new DevUserGroupStack(app, 'DevUserGroupStack', props);
+
+// infra
 new RepositoryStack(app, `RepositoryStack`, props);
 new S3Stack(app, `S3Stack-${env}`, props);
 new VPCStack(app, `VPCStack-${env}`, props);

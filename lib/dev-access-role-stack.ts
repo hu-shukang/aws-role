@@ -56,6 +56,7 @@ export class DevAccessRoleStack extends cdk.Stack {
             `arn:aws:iam::${account}:role/LambdaAccessRole`,
             `arn:aws:iam::${account}:role/CodePipelineRole`,
             `arn:aws:iam::${account}:role/ECSTaskExecutionRole`,
+            `arn:aws:iam::${account}:role/EventBridgeForCodePipelineRole`,
           ],
         }),
         new iam.PolicyStatement({
