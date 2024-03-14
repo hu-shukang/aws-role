@@ -19,8 +19,9 @@
     "cdk:deploy:dev-user-group": "cdk deploy DevUserGroupStack --profile admin",
     "cdk:deploy:repository": "cdk deploy RepositoryStack --profile admin",
     "cdk:deploy:s3:it": "cdk deploy S3Stack-it -c env=it --profile admin",
-    "cdk:deploy:s3:st": "cdk deploy S3Stack-it -c env=st --profile admin",
+    "cdk:deploy:s3:st": "cdk deploy S3Stack-st -c env=st --profile admin",
     "cdk:deploy:vpc:it": "cdk deploy VPCStack-it -c env=it --profile admin",
+    "cdk:deploy:vpc:st": "cdk deploy VPCStack-st -c env=st --profile admin",
     "lint": "eslint --fix --ext \".ts\" \"**/*.ts\""
   },
   "devDependencies": {
