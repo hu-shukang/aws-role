@@ -16,7 +16,6 @@
     "cdk:deploy:ecs-execution-task-role": "cdk deploy ECSExecutionTaskRole --profile admin",
     "cdk:deploy:dev-access-role": "cdk deploy DevAccessRoleStack --profile admin",
     "cdk:deploy:event-bridge-for-code-pipeline-role": "cdk deploy EventBridgeForCodePipelineRoleStack --profile admin",
-    "cdk:deploy:admin-user-group": "cdk deploy AdminUserGroupStack --profile admin",
     "cdk:deploy:dev-user-group": "cdk deploy DevUserGroupStack --profile admin",
     "cdk:deploy:repository": "cdk deploy RepositoryStack --profile admin",
     "cdk:deploy:s3:it": "cdk deploy S3Stack-it -c env=it --profile admin",

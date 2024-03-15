@@ -43,6 +43,7 @@ export class CodePipelineRoleStack extends cdk.Stack {
             'ecr:GetAuthorizationToken',
             'secretsmanager:GetRandomPassword',
             'secretsmanager:ListSecrets',
+            'iam:PassRole',
           ],
           resources: ['*'],
         }),
@@ -92,7 +93,7 @@ export class CodePipelineRoleStack extends cdk.Stack {
           ],
           conditions: {
             StringLike: {
-              'iam:AWSServiceName': 'replication.ecr.amazonaws.com',
+              'iam:AWSServiceName': 'elasticloadbalancing.amazonaws.com',
             },
           },
         }),
@@ -108,10 +109,13 @@ export class CodePipelineRoleStack extends cdk.Stack {
           },
         }),
         new iam.PolicyStatement({
-          actions: ['iam:PassRole'],
-          resources: [
-            `arn:aws:iam::${account}:role/aws-service-role/ecs.application-autoscaling.amazonaws.com/AWSServiceRoleForApplicationAutoScaling_ECSService`,
-          ],
+          actions: ['iam:CreateServiceLinkedRole'],
+          resources: [`arn:aws:iam::${account}:role/aws-service-role/ecs.amazonaws.com/AWSServiceRoleForECS`],
+          conditions: {
+            StringLike: {
+              'iam:AWSServiceName': 'ecs.amazonaws.com',
+            },
+          },
         }),
         new iam.PolicyStatement({
           actions: [
@@ -271,6 +275,7 @@ export class CodePipelineRoleStack extends cdk.Stack {
             'ecs:DeleteCapacityProvider',
             'ecs:SubmitAttachmentStateChanges',
             'ecs:Poll',
+            'ecs:CreateService',
             'ecs:UpdateService',
             'ecs:DescribeCapacityProviders',
             'ecs:DescribeServices',
@@ -332,15 +337,6 @@ export class CodePipelineRoleStack extends cdk.Stack {
         new iam.PolicyStatement({
           actions: ['iam:ListRoles', 'iam:ListInstanceProfiles'],
           resources: ['*'],
-        }),
-        new iam.PolicyStatement({
-          actions: ['iam:PassRole'],
-          resources: [`arn:aws:iam::${account}:role/ECSTaskRole`],
-          conditions: {
-            StringLike: {
-              'iam:PassedToService': 'ecs-tasks.amazonaws.com',
-            },
-          },
         }),
         new iam.PolicyStatement({
           actions: ['elasticloadbalancing:ModifyLoadBalancerAttributes'],

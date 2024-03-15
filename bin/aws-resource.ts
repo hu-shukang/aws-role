@@ -7,17 +7,14 @@ import { ECSExecutionTaskRole } from '../lib/ecs-execution-task-role-stack';
 import { CodePipelineRoleStack } from '../lib/codepipeline-role-stack';
 import { DevAccessRoleStack } from '../lib/dev-access-role-stack';
 import { DevUserGroupStack } from '../lib/dev-user-group-stack';
-import { AdminUserGroupStack } from '../lib/admin-user-group-stack';
 import { S3Stack } from '../lib/s3-stack';
 import { RepositoryStack } from '../lib/repository-stack';
 import { VPCStack } from '../lib/vpc-stack';
 import { EventBridgeForCodePipelineRoleStack } from '../lib/event-bridge-for-code-pipeline-role-stack';
+import { Context, context } from './context';
 
 declare module 'aws-cdk-lib' {
-  interface Environment {
-    appName: string;
-    env: string;
-  }
+  interface Environment extends Context {}
 }
 
 const app = new cdk.App({
@@ -29,9 +26,8 @@ const app = new cdk.App({
 });
 
 const env = app.node.tryGetContext('env') as string;
-
 const props: cdk.StackProps = {
-  env: { account: '471112651100', region: 'ap-northeast-1', appName: 'tanso', env: env },
+  env: { account: context.account, region: context.region, appName: context.appName, env: env },
 };
 // role
 new CodePipelineRoleStack(app, 'CodePipelineRoleStack', props);
@@ -42,7 +38,6 @@ new DevAccessRoleStack(app, 'DevAccessRoleStack', props);
 new EventBridgeForCodePipelineRoleStack(app, 'EventBridgeForCodePipelineRoleStack', props);
 
 // user group
-new AdminUserGroupStack(app, 'AdminUserGroupStack', props);
 new DevUserGroupStack(app, 'DevUserGroupStack', props);
 
 // infra
