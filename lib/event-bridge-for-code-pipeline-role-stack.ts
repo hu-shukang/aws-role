@@ -16,7 +16,7 @@ export class EventBridgeForCodePipelineRoleStack extends cdk.Stack {
       managedPolicyName: 'EventBridgeForCodePipelinePolicy',
       statements: [
         new iam.PolicyStatement({
-          notActions: ['codepipeline:StartPipelineExecution'],
+          actions: ['codepipeline:StartPipelineExecution'],
           resources: [`arn:aws:codepipeline:${region}:${account}:*`],
         }),
       ],

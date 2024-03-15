@@ -364,8 +364,8 @@ export class ECSTaskRoleStack extends cdk.Stack {
     const ecsTaskRole = new iam.Role(this, 'ECSTaskRole', {
       roleName: 'ECSTaskRole',
       assumedBy: new iam.CompositePrincipal(
-        new iam.ServicePrincipal('lambda.amazonaws.com'),
-        new iam.ServicePrincipal('apigateway.amazonaws.com'),
+        new iam.ServicePrincipal('ecs-tasks.amazonaws.com'),
+        new iam.ServicePrincipal('ecs.application-autoscaling.amazonaws.com'),
       ),
     });
     ecsTaskPolicy.attachToRole(ecsTaskRole);

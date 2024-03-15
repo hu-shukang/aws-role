@@ -13,7 +13,7 @@
     "cdk:deploy:codepipeline-role": "cdk deploy CodePipelineRoleStack --profile admin",
     "cdk:deploy:lambda-access-role": "cdk deploy LambdaAccessRoleStack --profile admin",
     "cdk:deploy:ecs-task-role": "cdk deploy ECSTaskRoleStack --profile admin",
-    "cdk:deploy:ecs-execution-task-role": "cdk deploy ECSExecutionTaskRole --profile admin",
+    "cdk:deploy:ecs-task-execution-role": "cdk deploy ECSTaskExecutionRole --profile admin",
     "cdk:deploy:dev-access-role": "cdk deploy DevAccessRoleStack --profile admin",
     "cdk:deploy:event-bridge-for-code-pipeline-role": "cdk deploy EventBridgeForCodePipelineRoleStack --profile admin",
     "cdk:deploy:dev-user-group": "cdk deploy DevUserGroupStack --profile admin",

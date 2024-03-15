@@ -367,6 +367,28 @@ export class CodePipelineRoleStack extends cdk.Stack {
           actions: ['elasticloadbalancing:DescribeTargetGroupAttributes', 'elasticloadbalancing:DescribeTargetHealth'],
           resources: ['*'],
         }),
+        new iam.PolicyStatement({
+          actions: [
+            'cognito-idp:UpdateUserPoolDomain',
+            'cognito-idp:DeleteUserPool',
+            'cognito-idp:DeleteUserPoolClient',
+            'cognito-idp:UpdateUserPoolClient',
+            'cognito-idp:GetUserPoolMfaConfig',
+            'cognito-idp:DeleteUserPoolDomain',
+            'cognito-idp:ListUserPoolClients',
+            'cognito-idp:DescribeUserPool',
+            'cognito-idp:CreateUserPoolDomain',
+            'cognito-idp:CreateUserPoolClient',
+            'cognito-idp:SetUserPoolMfaConfig',
+            'cognito-idp:UpdateUserPool',
+            'cognito-idp:DescribeUserPoolClient',
+          ],
+          resources: [`arn:aws:cognito-idp:${region}:${account}:userpool/*`],
+        }),
+        new iam.PolicyStatement({
+          actions: ['cognito-idp:DescribeUserPoolDomain', 'cognito-idp:CreateUserPool', 'cognito-idp:ListUserPools'],
+          resources: ['*'],
+        }),
       ],
     });
 

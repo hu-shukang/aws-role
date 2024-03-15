@@ -65,46 +65,49 @@ export class VPCStack extends cdk.Stack {
 
     privateSg.addIngressRule(protectedSg, ec2.Port.tcp(5432), 'Allow 5432 inbound traffic');
 
-    // Create ECR DKR Interface Endpoint
-    new ec2.InterfaceVpcEndpoint(this, `EcrDkrEndpoint-${env}`, {
-      vpc: vpc,
-      service: ec2.InterfaceVpcEndpointAwsService.ECR_DOCKER,
-      subnets: { subnets: vpc.privateSubnets },
-      securityGroups: [protectedSg],
-    });
-
-    // Create ECR API Interface Endpoint
-    new ec2.InterfaceVpcEndpoint(this, `EcrApiEndpoint-${env}`, {
-      vpc: vpc,
-      service: ec2.InterfaceVpcEndpointAwsService.ECR,
-      subnets: { subnets: vpc.privateSubnets },
-      securityGroups: [protectedSg],
-    });
-
-    // Create S3 Gateway Endpoint
-    new ec2.GatewayVpcEndpoint(this, `S3Endpoint-${env}`, {
-      vpc: vpc,
-      service: ec2.GatewayVpcEndpointAwsService.S3,
-      subnets: [
-        {
-          subnetType: ec2.SubnetType.PRIVATE_WITH_EGRESS,
-        },
-      ],
-    });
-
-    // Create ECR API Interface Endpoint
-    new ec2.InterfaceVpcEndpoint(this, `EcrLog-${env}`, {
-      vpc: vpc,
-      service: ec2.InterfaceVpcEndpointAwsService.CLOUDWATCH_LOGS,
-      subnets: { subnets: vpc.privateSubnets },
-      securityGroups: [protectedSg],
-    });
-
     new rds.SubnetGroup(this, `SubnetGroup-${env}`, {
       vpc: vpc,
       subnetGroupName: `SubnetGroup-${env}`,
       description: `SubnetGroup-${env}`,
       vpcSubnets: { subnets: vpc.isolatedSubnets },
     });
+
+    // ====================================================
+    // NAT Gatewayを使用する場合は、下記の4つのEndPointが不要
+    // ====================================================
+    // // Create ECR API Interface Endpoint
+    // new ec2.InterfaceVpcEndpoint(this, `EcrLog-${env}`, {
+    //   vpc: vpc,
+    //   service: ec2.InterfaceVpcEndpointAwsService.CLOUDWATCH_LOGS,
+    //   subnets: { subnets: vpc.privateSubnets },
+    //   securityGroups: [protectedSg],
+    // });
+
+    // // Create S3 Gateway Endpoint
+    // new ec2.GatewayVpcEndpoint(this, `S3Endpoint-${env}`, {
+    //   vpc: vpc,
+    //   service: ec2.GatewayVpcEndpointAwsService.S3,
+    //   subnets: [
+    //     {
+    //       subnetType: ec2.SubnetType.PRIVATE_WITH_EGRESS,
+    //     },
+    //   ],
+    // });
+
+    // // Create ECR API Interface Endpoint
+    // new ec2.InterfaceVpcEndpoint(this, `EcrApiEndpoint-${env}`, {
+    //   vpc: vpc,
+    //   service: ec2.InterfaceVpcEndpointAwsService.ECR,
+    //   subnets: { subnets: vpc.privateSubnets },
+    //   securityGroups: [protectedSg],
+    // });
+
+    // // Create ECR DKR Interface Endpoint
+    // new ec2.InterfaceVpcEndpoint(this, `EcrDkrEndpoint-${env}`, {
+    //   vpc: vpc,
+    //   service: ec2.InterfaceVpcEndpointAwsService.ECR_DOCKER,
+    //   subnets: { subnets: vpc.privateSubnets },
+    //   securityGroups: [protectedSg],
+    // });
   }
 }
