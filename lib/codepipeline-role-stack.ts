@@ -35,6 +35,7 @@ export class CodePipelineRoleStack extends cdk.Stack {
         }),
         new iam.PolicyStatement({
           actions: [
+            'ses:*',
             'ec2:*',
             'sns:Publish',
             'cloudformation:*',
@@ -72,6 +73,18 @@ export class CodePipelineRoleStack extends cdk.Stack {
           conditions: {
             StringLike: {
               'iam:AWSServiceName': 'rds.amazonaws.com',
+            },
+          },
+        }),
+        new iam.PolicyStatement({
+          actions: ['iam:CreateServiceLinkedRole'],
+          resources: [
+            `arn:aws:iam::${account}:role/aws-service-role/email.cognito-idp.amazonaws.com/AWSServiceRoleForAmazonCognitoIdpEmailService`,
+            `arn:aws:iam::${account}:role/aws-service-role/email.cognito-idp.amazonaws.com/AWSServiceRoleForAmazonCognitoIdp`,
+          ],
+          conditions: {
+            StringLike: {
+              'iam:AWSServiceName': 'email.cognito-idp.amazonaws.com',
             },
           },
         }),
@@ -382,6 +395,9 @@ export class CodePipelineRoleStack extends cdk.Stack {
             'cognito-idp:SetUserPoolMfaConfig',
             'cognito-idp:UpdateUserPool',
             'cognito-idp:DescribeUserPoolClient',
+            'cognito-idp:TagResource',
+            'cognito-idp:UntagResource',
+            'cognito-idp:ListTagsForResource',
           ],
           resources: [`arn:aws:cognito-idp:${region}:${account}:userpool/*`],
         }),

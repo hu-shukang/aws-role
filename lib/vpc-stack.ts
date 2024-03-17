@@ -75,39 +75,44 @@ export class VPCStack extends cdk.Stack {
     // ====================================================
     // NAT Gatewayを使用する場合は、下記の4つのEndPointが不要
     // ====================================================
-    // // Create ECR API Interface Endpoint
-    // new ec2.InterfaceVpcEndpoint(this, `EcrLog-${env}`, {
-    //   vpc: vpc,
-    //   service: ec2.InterfaceVpcEndpointAwsService.CLOUDWATCH_LOGS,
-    //   subnets: { subnets: vpc.privateSubnets },
-    //   securityGroups: [protectedSg],
-    // });
+    // Create ECR API Interface Endpoint
+    //   const logEndpoint = new ec2.InterfaceVpcEndpoint(this, `EcrLog-${env}`, {
+    //     vpc: vpc,
+    //     service: ec2.InterfaceVpcEndpointAwsService.CLOUDWATCH_LOGS,
+    //     subnets: { subnets: vpc.privateSubnets },
+    //     securityGroups: [protectedSg],
+    //   });
 
-    // // Create S3 Gateway Endpoint
-    // new ec2.GatewayVpcEndpoint(this, `S3Endpoint-${env}`, {
-    //   vpc: vpc,
-    //   service: ec2.GatewayVpcEndpointAwsService.S3,
-    //   subnets: [
-    //     {
-    //       subnetType: ec2.SubnetType.PRIVATE_WITH_EGRESS,
-    //     },
-    //   ],
-    // });
+    //   cdk.Tags.of(logEndpoint).add('Name', `EcrLog-${env}`);
 
-    // // Create ECR API Interface Endpoint
-    // new ec2.InterfaceVpcEndpoint(this, `EcrApiEndpoint-${env}`, {
-    //   vpc: vpc,
-    //   service: ec2.InterfaceVpcEndpointAwsService.ECR,
-    //   subnets: { subnets: vpc.privateSubnets },
-    //   securityGroups: [protectedSg],
-    // });
+    //   // Create S3 Gateway Endpoint
+    //   const s3Endpoint = new ec2.GatewayVpcEndpoint(this, `S3Endpoint-${env}`, {
+    //     vpc: vpc,
+    //     service: ec2.GatewayVpcEndpointAwsService.S3,
+    //     subnets: [
+    //       {
+    //         subnetType: ec2.SubnetType.PRIVATE_WITH_EGRESS,
+    //       },
+    //     ],
+    //   });
+    //   cdk.Tags.of(s3Endpoint).add('Name', `S3Endpoint-${env}`);
 
-    // // Create ECR DKR Interface Endpoint
-    // new ec2.InterfaceVpcEndpoint(this, `EcrDkrEndpoint-${env}`, {
-    //   vpc: vpc,
-    //   service: ec2.InterfaceVpcEndpointAwsService.ECR_DOCKER,
-    //   subnets: { subnets: vpc.privateSubnets },
-    //   securityGroups: [protectedSg],
-    // });
+    //   // Create ECR API Interface Endpoint
+    //   const ecrApiEndpoint = new ec2.InterfaceVpcEndpoint(this, `EcrApiEndpoint-${env}`, {
+    //     vpc: vpc,
+    //     service: ec2.InterfaceVpcEndpointAwsService.ECR,
+    //     subnets: { subnets: vpc.privateSubnets },
+    //     securityGroups: [protectedSg],
+    //   });
+    //   cdk.Tags.of(ecrApiEndpoint).add('Name', `EcrApiEndpoint-${env}`);
+
+    //   // Create ECR DKR Interface Endpoint
+    //   const ecrDkrEndpoint = new ec2.InterfaceVpcEndpoint(this, `EcrDkrEndpoint-${env}`, {
+    //     vpc: vpc,
+    //     service: ec2.InterfaceVpcEndpointAwsService.ECR_DOCKER,
+    //     subnets: { subnets: vpc.privateSubnets },
+    //     securityGroups: [protectedSg],
+    //   });
+    //   cdk.Tags.of(ecrDkrEndpoint).add('Name', `EcrDkrEndpoint-${env}`);
   }
 }
