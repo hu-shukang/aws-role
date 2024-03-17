@@ -1,8 +1,8 @@
 {
-  "name": "aws-role",
+  "name": "aws-resource",
   "version": "0.1.0",
   "bin": {
-    "aws-role": "bin/aws-role.js"
+    "aws-resource": "bin/aws-resource.js"
   },
   "scripts": {
     "build": "tsc",

@@ -6,7 +6,7 @@ export type Context = {
 };
 
 export const context = {
-  account: '471112651100',
+  account: '', // AWSアカウント
   region: 'ap-northeast-1',
-  appName: 'tanso',
+  appName: '', // アプリ名
 };

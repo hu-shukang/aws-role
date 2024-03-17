@@ -19,9 +19,9 @@ declare module 'aws-cdk-lib' {
 
 const app = new cdk.App({
   defaultStackSynthesizer: new cdk.CliCredentialsStackSynthesizer({
-    fileAssetsBucketName: 'hsk-cdk',
-    bucketPrefix: 'aws-role',
-    qualifier: 'aws-role',
+    fileAssetsBucketName: '', // CDK資源用のS3 Bucket
+    bucketPrefix: 'aws-resource',
+    qualifier: 'aws-resource',
   }),
 });
 

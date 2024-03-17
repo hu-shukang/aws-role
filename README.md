@@ -1,8 +1,8 @@
 # AWS環境構築の流れ
 
 1. Root UserでAWS Management Consoleに入る
-2. S3に入って`tanso-cdk-work`のBucketを作成する（設定値は全部デフォルト）
-   > このBucketはCDK Deploy時に使用するBucketで、Bucket名を`bin/aws-resource.ts`の25行目に設定する必要がある
+2. S3に入って`<アプリ名>-cdk-work`のBucketを作成する（設定値は全部デフォルト）
+   > このBucketはCDK Deploy時に使用するBucketで、Bucket名を`bin/aws-resource.ts`の22行目に設定する必要がある
 3. IAMに入って、Admin Userを作成する（作成方法は「1. Admin User作成の流れ」をご参照）
 4. AWS-Resourceのプロジェクトの直下で`npm install`のコマンドを実行する
 5. `bin/context.ts`に`account`と`appName`を設定する
