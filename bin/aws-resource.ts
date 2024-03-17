@@ -27,7 +27,7 @@ const app = new cdk.App({
 
 const env = app.node.tryGetContext('env') as string;
 const props: cdk.StackProps = {
-  env: { account: context.account, region: context.region, appName: context.appName, env: env },
+  env: { ...context, env: env },
 };
 // role
 new CodePipelineRoleStack(app, 'CodePipelineRoleStack', props);
